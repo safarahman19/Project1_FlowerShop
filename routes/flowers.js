@@ -5,7 +5,9 @@ const Flower = require('../models/Flower');
 router.get('/', async (req, res) => {
     try {
         const flowers = await Flower.find();
-        res.render('flowers/index', {flowers });
+        res.render('flowers/index', {
+            title: 'Flower',
+            flowers:flowers});
 
     }catch (err) {
         res.status(500).send('Error getting flowers: ' + err);
