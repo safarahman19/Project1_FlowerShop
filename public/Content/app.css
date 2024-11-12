@@ -1,1 +1,50 @@
 /*Custom CSS */
+.custom-navbar {
+    background-color:#f5f1ee; /* sage green color */
+}
+
+.custom-navbar-title {
+    color: #D96666 !important;
+    font-weight: 500 !important;
+    font-family: 'Playfair Display';
+    font-size: 50px !important;
+}
+
+body {
+    background-color: #fffefe !important;
+}
+
+.light-pink-block {
+    background-color: #faebeb;
+    padding: 90px;
+    border-radius: 10px;
+}
+.light-pink-block h1 {
+    color: #D96666 !important;
+    font-family: 'Playfair Display';
+    font-size: 2.8rem;
+    font-weight: bold;
+}
+
+.light-pink-block p {
+    font-size: 1.4rem;
+    font-weight: 500 !important;
+    font-family: 'Calibri';
+    color: #d27c7c;
+}
+
+.light-pink-block .btn {
+    background-color: #e8cbcb;
+    color: white;
+    border: none;
+    font-size: 1;
+}
+
+.light-pink-block .btn:hover {
+    background-color: #efc2c2;
+}
+
+.custom-footer {
+    background-color: #f4e0e0;
+    color: #000;
+}
