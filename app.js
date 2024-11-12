@@ -1,27 +1,27 @@
 /* installed 3rd party packages */
-require('dotenv').config();
-
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-let mongoose = require('mongoose');
 
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
-let flowersRouter = require('./routes/flowers');
-let methodOverride = require('method-override');
+let indexRouter = require('../routes/index');
+let usersRouter = require('../routes/users');
+let flowerRouter = require('../routes/flower')
 
 let app = express();
-
-console.log('MongoDB URI:', process.env.MONGODB_URI);
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.log('MongoBD connection error:', err));
+// mongoose --> URI
+let mongoose = require('mongoose');
+let DB = require('./db')
+mongoose.connect(DB.URI);
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'Connection Error'));
+mongoDB.once('open', ()=> {
+  console.log('MongoDB Connected')
+})
+mongoose.connect(DB.URI, {useNewURIParser:true,
+  useUnifiedTopology:true
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,12 +31,12 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../../public')));
+app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/flowers', flowersRouter);
-app.use(methodOverride('_method'));
+app.use('/flowerslist', flowerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

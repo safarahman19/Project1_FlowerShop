@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1><%= title %></h1>
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <label for="nameTextField">Name</label>
+                    <input type="text" class="form-control" id="nameTextField"
+                    placeholder="Enter the name" name="Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="colorTextField">Color</label>
+                    <input type="text" class="form-control" id="colorTextField"
+                    placeholder="Enter the color" name="Color" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantityTextField">Quantity</label>
+                    <input type="text" class="form-control" id="qunatityTextField"
+                    placeholder="Enter the quantity" name="Quantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="priceTextField">Flower Price</label>
+                    <input type="text" class="form-control" id="priceTextField"
+                    placeholder="Enter the price" name="Price" required>
+                </div>
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-solid fa-edit"></i>
+                    Submit</button>
+                <a href="/flowerslist" class="btn btn-warning">
+                    <i class="fas fa-undo"></i>Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
