@@ -6,7 +6,32 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p> Flower Shop </p>
+    <p> Welcome to the Flower Shop! </p>
+
+    <a href="/flowers/new">Add a New Flower</a>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Color</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+      <% flowers.forEach(flower => { %>
+        <tr>
+          <td><%= flower.name %></tr>
+          <td><%= flower.color %></tr>
+          <td><%= flower.price %></tr>})
+          <td>
+            <a href="/flowers/edit/<%= flower._id %>">Edit</a>
+            <form action="/flowers/delete/<%= flower._id %>" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+      
     <script src = "/Scripts/app.js"></script>
   </body>
 </html>
