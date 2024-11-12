@@ -3,8 +3,14 @@ const router = express.Router();
 const Flower = require('../models/Flower');
 
 router.get('/', async (req, res) => {
-    const flowers = await Flower.find();
-    res.render('flowers/index', {flowers });
+    try {
+        const flowers = await Flower.find();
+        res.render('flowers/index', {flowers });
+
+    }catch (err) {
+        res.status(500).send('Error getting flowers: ' + err);
+    }
+    
 });
 
 router.get('/new', (req, res) => {

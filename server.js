@@ -5,7 +5,17 @@
 var app = require('./app');
 var debug = require('debug')('flowershop:server');
 var http = require('http');
+const mongoose = require('mongoose');
 
+const mongoURI = 'mongodb+srv://safarahman2:safa05@flowershopcluster.3hjno.mongodb.net/?retryWrites=true&w=majority&appName=FlowershopCluster';
+
+mongoose.connect(mongoURI, { useNewURlParser: true, useUnifiedTopology: true})
+  .then(() => {
+    console.log('MongoDB connected successfully');
+  })
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+  });
 /**
  * Get port from environment and store in Express.
  */
