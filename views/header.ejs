@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/Content/app.css' />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <title>Flower Shop</title>
     <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;1000&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Calibri:wght@400;1000&display=swap" rel="stylesheet">
-  </head>
-  <body>
-      <header>
+</head>
+<body>
+    <header>
         <!--NavBar-->
-        <nav class="navbar navbar-expand-lg custom-navbar">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand custom-navbar-title" href="/">FLOWER SHOP</a>
+                <a class="navbar-brand" href="/">Flower Shop</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -53,58 +52,15 @@
             </div>
         </nav>
     </header>
-
-<!--Hero Section -->
-    <div class="jumbotron text-center mt-4">
-      <div class="light-pink-block">
-        <h1 class="display-4">Welcome to the Flower Shop!</h1>
-        <p class="lead">Shop for the perfect flowers for every occasion.</p>
-        <a class="btn btn-primary btn-lg" href="/flowers" role="button">Shop Flowers</a>
-      </div>
+    <div class="container mt-4">
+        <%- body %>
     </div>
 
-  
+    <footer class = "bg-dark text-white text-center py-3 mt-4">
+        <p>&copy; 2024 Flower Shop. All Rights Reserved.</p>
+    </footer>
 
-    <div class="container mt-5">
-      <h2 class="text-center">Our Flower Collection</h2>
-      <p class="text-center">We offer a great variety to choose from.</p>
-      <a href="/flowers/new" class="btn btn-success mb-3">Add a New Flower</a>
-
-      <table class="table table-bordered table-hover">
-      <thread>
-        <tr>
-          <th>Name</th>
-          <th>Color</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thread>
-      <tbody>
-        <% flowers.forEach(flower => { %>
-          <tr>
-            <td><%= flower.name %></tr>
-            <td><%= flower.color %></tr>
-            <td><%= flower.price %></tr>
-            <td><%= flower.Quantity %></td>
-            <td>
-              <a href="/flowerslist/edit/<%= flower._id %>">Edit</a>
-              <form action="/flowerslist/delete/<%= flower._id %>" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-              </form>
-            </td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-  </div>
-      
-  
-  <footer class = "custom-footer text-white text-center py-3 mt-4">
-    <p>&copy; 2024 Flower Shop. All Rights Reserved.</p>
-  </footer>
-
-  <script src="http://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

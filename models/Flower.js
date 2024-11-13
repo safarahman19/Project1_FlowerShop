@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-const FlowerSchema = new mongoose.Schema({
-    name: {type: String, required: true },
-    color: {type: String, required: true },
-    price: {type: Number, required: true },
-    quantity: {type: Number, required: true },
+const flowerSchema = new mongoose.Schema({
+    Name: {type: String, required: true },
+    Color: {type: String, required: true },
+    Price: {type: Number, required: true },
+    Quantity: {type: Number, required: true },
 });
 
-const Flowers = mongoose.model('Flower', FlowerSchema);
-module.exports = Flowers;
+module.exports = mongoose.model('Flower', flowerSchema);

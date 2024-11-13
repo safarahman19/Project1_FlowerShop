@@ -2,12 +2,8 @@
 <a href="/flowers/new">Add New Flower</a>
 <ul>
     <% flowers.forEach(flower => { %>
-        <li>
-            <%= flower.name %> - $<%= flower.price %>
-            <a href="/flowers/<%= flower._id %>/edit">Edit</a>
-            <form action="/flowers/<%= flower._id %>/delete" method="POST" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
+        <%= flower.name %> - $<%= flower.price %>
+        <li><%= flower.Name %> - <%= flower.Color %> - $<%= flower.price %></li>
+
     <% }) %>
 </ul>

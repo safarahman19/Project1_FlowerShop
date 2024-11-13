@@ -48,3 +48,9 @@ body {
     background-color: #f4e0e0;
     color: #000;
 }
+
+html, body {
+    overflow: auto !important;
+    height: 100%;
+    margin: 0;
+}

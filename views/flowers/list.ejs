@@ -3,33 +3,43 @@
         <div class="offset-md-1-col-md-10">
             <h1><%= title %></h1>
             <a href="/flowerslist/add" class="btn btn-primary"
-            role="button"><i class="fas fa-plus-circle"></i>Add Flower</a>
-        <table class="table table-bordered table-striped table-hover">
-            <!--Table Header-->
-            <tr class="d-flex">
-                <th class="text-center col-2">Name</th>
-                <th class="text-center col-2">Color</th>
-                <th class="text-center col-2">Price</th>
-                <th class="text-center col-2">Quantity</th>
+            role="button">
+                <i class="fas fa-plus-circle"></i>Add Flower
+            </a>
 
-            </tr>
-            <% for(let count=0;count<FlowerList.length;count++) { %>
-                <tr class="d-flex">
-                    <td class="text-center col-2"><%= flowers[count].Name %></td>
-                    <td class="text-center col-2"><%= flowers[count].Color %></td>
-                    <td class="text-center col-2"><%= flowers[count].Price %></td>
-                    <td class="text-center col-2"><%= flowers[count].Quantity %></td>
-                    <td class="text-center col-1">
-                        <a href="/flowerslist/edit/<%= flowers[count]._id%>"
-                        class="btn btn-primary btn-sm">
-                        <i class="fas fa-pencil-alit"></i>Edit</a></td>
-                    <td class="text-center col-1">
-                        <a href="/flowerslist/delete/<%= flowers[count]._id%>"
-                        class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash-alt"></i>Delete</a></td>
-                </tr>
-            <% } %>
-        </table>
+            <table class="table table-bordered table-striped table-hover">
+            <!--Table Header-->
+                <thread>
+                    <tr class="d-flex">
+                        <th class="text-center col-2">Name</th>
+                        <th class="text-center col-2">Color</th>
+                        <th class="text-center col-2">Price</th>
+                        <th class="text-center col-2">Quantity</th>
+                        <th class="text-center col-2">Actions</th>
+
+                    </tr>
+                </thread>
+                <tbody>
+
+                    <% flowers.forEach(flower => { %>
+                        <tr>
+                            <td class="text-center col-2"><%= flower.Name %></td>
+                            <td class="text-center col-2"><%= flower.Color %></td>
+                            <td class="text-center col-2"><%= flower.Price %></td>
+                            <td class="text-center col-2"><%= flower.Quantity %></td>
+                            <td class="text-center col-1">
+                                
+                                <a href="/flowerslist/edit/<%= flower._id%>" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-pencil-alit"></i>Edit
+                                </a>
+                                <a href="/flowerslist/delete/<%= flower._id%>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this?');">
+                                    <i class="fas fa-trash-alt"></i>Delete
+                                </a>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
         </div>
     </div>
 </main>
