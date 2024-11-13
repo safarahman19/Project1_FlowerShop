@@ -7,22 +7,29 @@ router.get('/', async (req, res) => {
         const flowers = await Flower.find();
         res.render('flowers/index', {
             title: 'Flower',
-            flowers:flowers});
-
+            flowers:flowers
+        });
     }catch (err) {
         res.status(500).send('Error getting flowers: ' + err);
     }
-    
 });
 
 router.get('/new', (req, res) => {
-    res.render('flowers/new');
+    res.render('flowers/new', {title: "Add Flower"});
 });
 
 router.post('/', async (req, res) => {
-    const { name, color, price } = req.body;
-    await Flower.create({ name, color, price });
-    res.redirect('/flowers');
+    const { name, color, price, quantity } = req.body;
+
+    if (!name || !color || !price || !quantity) {
+        return res.status(400).send('All fields are required');
+    }
+    try {
+        await Flower.create({ name, color, price, quantity });
+        res.redirect('/flowers');
+    } catch (err) {
+        res.status(500).send('Error adding flowers' + err);
+    }
 });
 
 router.get('/:id/edit', async (req, res) => {
