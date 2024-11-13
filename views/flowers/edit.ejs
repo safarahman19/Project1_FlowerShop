@@ -8,24 +8,26 @@
     <div class="container mt-5">
         <h1 class="text-center">Edit Flower</h1>
     
-            <form action="/flowerslist/edit/<%= flower._id %>?_method=PUT" method="POST" class="mt-4">
+            <form action="/flowers/edit/<%= flower._id %>?_method=PUT" method="POST" class="mt-4">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name:</label>
-                    <input type="text" id="name"  name="name" value="<%= flower.Name %>" class="form-control" required>
+                    <input type="text" id="name"  name="name" value="<%= flower.name %>" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="color" class="form-label">Color:</label>
-                    <input type="text" id="color"  name="color" value="<%= flower.Color %>" class="form-control" required>
+                    <input type="text" id="color"  name="color" value="<%= flower.color %>" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="price" class="form-label">Price:</label>
-                    <input type="number" id="price"  name="price" value="<%= flower.Price %>" class="form-control" required>
+                    <input type="number" id="price"  name="price" value="<%= flower.price %>" class="form-control" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update Flower</button>
-                <a href="/flowerslist" class="btn btn-secondary">Cancel</a>
+                <a href="/flowers/edit/ <%= flower._id %>/edit" class="btn btn-primary btn-sm">
+                <i class="bi bi=pencil-square"></i> Edit
+                </a>
             </form>
         </div>
 

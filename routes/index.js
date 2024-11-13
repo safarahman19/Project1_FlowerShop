@@ -46,7 +46,7 @@ router.get('/flowerslist/edit/:id', async  (req, res) => {
     if (!flower) {
       return res.status(404).send('Flower not found.');
     }
-    res.render('editFlower', {title: 'Edit Flower', flower});
+    res.render('flowers/edit', {title: 'Edit Flower', flower});
   } catch (err) {
     console.error('Error getting flowers:', err);
     res.status(500).send('Error getting flower details.');

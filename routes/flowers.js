@@ -33,19 +33,45 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id/edit', async (req, res) => {
-    const flower = await Flower.findById(req.params.id);
-    res.render('flowers/edit', {flower });
+    try {
+        const flower = await Flower.findById(req.params.id);
+        if (!flower) {
+            return res.status(404).send('Flower not found');
+        }
+        res.render('flowers/edit', { title: 'Edit flower', flower });
+    }   catch (error) {
+        console.error('Error retrieving flower for edit:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-router.post('/:id', async (req, res) => {
-    const { name, description, price } = req.body;
-    await Flower.findByIdAndUpdate(req.params.id, { name, description, price});
-    res.redirect('/flowers');
+router.post('/:id/edit', async (req, res) => {
+    const { name, color, price, quantity } = req.body;
+    try {
+        const updatedFlower = await Flower.findByIdAndUpdate(
+            req.params.id, 
+            { name, color, price, quantity},
+            {new: true}
+        );
+        if (!updatedFlower) {
+            return res.status(404).send('Flower not found');
+        }
+        res.redirect('/flowers');
+    } catch (error) {
+        console.error('Error updating flower:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-router.post('/:id/delete', async (req, res) => {
-    await Flower.findByIdAndDelete(req.params.id);
-    res.redirect('/flowers');
+router.post('/delete/:id', async (req, res) => {
+    try {
+        const flowerId = req.params.id;
+        await Flower.findByIdAndDelete(flowerId);
+        res.redirect('/flowers');
+    }   catch (error) {
+        console.error("Error deleting your flower:", error);
+        res.status(500).send("internal Server Error");
+    }
 });
 
 module.exports = router;
