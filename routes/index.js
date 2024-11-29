@@ -3,6 +3,9 @@ const router = express.Router();
 const Flower = require('../models/Flower');
 const Contact = require('../models/contact');
 const methodOverride = require('method-override');
+let indexController = require('../controller/index');
+let mongoose = require('mongoose');
+let passport = require('passport');
 
 router.use(express.urlencoded({ extended: true}));
 router.use(methodOverride('_method'));
@@ -10,18 +13,19 @@ router.use(methodOverride('_method'));
 router.get('/', async function(req, res, next) {
   try {
     const flowers = await Flower.find();
-    res.render('index', { title: 'Flower Shop', flowers });
+    const displayName = req.user ? req.user.displayName : null;
+    res.render('index', { title: 'Flower Shop', flowers, displayName });
   } catch (error) {
     console.error("Error when fetching flowers:", error);
     next(error);
   }
 });
 
-router.get('/flowerslist/add', async (req, res) => {
+router.get('/flowerslist/add', requireAuth, async (req, res) => {
   res.render('addFlower', {title: 'Add a New Flower' });
 });
 
-router.post('/flowerslist/add', async (req, res) => {
+router.post('/flowerslist/add', requireAuth, async (req, res) => {
   const {Name, Color, Price, Quantity } = req.body;
   const newFlower = new Flower({
     Name,
@@ -39,21 +43,21 @@ router.post('/flowerslist/add', async (req, res) => {
   }
 });
 
-router.get('/flowerslist/edit/:id', async  (req, res) => {
+router.get('/flowerslist/edit/:id',requireAuth, async  (req, res) => {
   const flowerId = req.params.id;
   try {
     const flower = await Flower.findById(flowerId);
     if (!flower) {
       return res.status(404).send('Flower not found.');
     }
-    res.render('flowers/edit', {title: 'Edit Flower', flower});
+    res.render('flowers/edit',requireAuth, {title: 'Edit Flower', flower});
   } catch (err) {
     console.error('Error getting flowers:', err);
     res.status(500).send('Error getting flower details.');
   }
 });
 //update existing flowers
-router.post('/flowerslist/edit/:id', async (req, res) => {
+router.post('/flowerslist/edit/:id', requireAuth, async (req, res) => {
   const { Name, Color, Price, Quantity} = req.body;
   try {
     const updatedFlower = await Flower.findByIdAndUpdate(req.params.id, {
@@ -73,7 +77,7 @@ router.post('/flowerslist/edit/:id', async (req, res) => {
   }
 });
 //Delete flower
-router.get('/flowerslist/delete/:id', async (req, res) => {
+router.get('/flowerslist/delete/:id',requireAuth, async (req, res) => {
   try {
     const deletedFlower = await Flower.findByIdAndDelete(req.params.id);
     if (!deletedFlower) {
@@ -113,5 +117,32 @@ router.get('/flowerslist/delete/:id', async (req, res) => {
 
  }
 });
+
+router.get('/',(req, res) => {
+  console.log('User object:', req.user);
+  const displayName = req.user ? req.user.displayName : null;
+  res.render('index', { title: 'Flower Shop', displayName });
+  console.log('Display Name:', displayName);
+});
+
+function requireAuth(req,res, next)
+{
+  if(!req.isAuthenticated())
+  {
+    return res.redirect('/login');
+  }
+  next();
+}
+// get router for login page
+router.get('/login',indexController.displayLoginPage);
+// post router for login page
+router.post('/login',indexController.processLoginPage);
+
+// get router for Registration page
+router.get('/register',indexController.displayRegisterPage);
+// post router for Registration page
+router.post('/register',indexController.processRegisterPage);
+// get router for Logout page
+router.get('/logout',indexController.performLogout);
 
 module.exports = router;

@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Flower = require('../models/Flower');
+let indexController = require('../controller/index');
+let mongoose = require('mongoose');
+let passport = require('passport');
 
-router.get('/', async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
     try {
         const flowers = await Flower.find();
         res.render('flowers/index', {
@@ -18,7 +21,7 @@ router.get('/new', (req, res) => {
     res.render('flowers/new', {title: "Add Flower"});
 });
 
-router.post('/', async (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     const { name, color, price, quantity } = req.body;
 
     if (!name || !color || !price || !quantity) {
@@ -32,7 +35,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', requireAuth, async (req, res) => {
     try {
         const flower = await Flower.findById(req.params.id);
         if (!flower) {
@@ -45,7 +48,7 @@ router.get('/:id/edit', async (req, res) => {
     }
 });
 
-router.post('/:id/edit', async (req, res) => {
+router.post('/:id/edit', requireAuth, async (req, res) => {
     const { name, color, price, quantity } = req.body;
     try {
         const updatedFlower = await Flower.findByIdAndUpdate(
@@ -74,4 +77,32 @@ router.post('/delete/:id', async (req, res) => {
     }
 });
 
+router.get('/',(req, res) => {
+    console.log('User object:', req.user);
+    const displayName = req.user ? req.user.displayName : null;
+    res.render('index', { title: 'FLower Shop', displayName });
+    console.log('Display Name:', displayName);
+  });
+  
+function requireAuth(req,res, next)
+  {
+    if(req.isAuthenticated())
+    {
+      return res.redirect('/login');
+    }
+    next();
+  }
+  // get router for login page
+router.get('/login',indexController.displayLoginPage);
+  // post router for login page
+router.post('/login',indexController.processLoginPage);
+  
+  // get router for Registration page
+router.get('/register',indexController.displayRegisterPage);
+  // post router for Registration page
+router.post('/register',indexController.processRegisterPage);
+  // get router for Logout page
+router.get('/logout',indexController.performLogout);
+  
+  
 module.exports = router;
