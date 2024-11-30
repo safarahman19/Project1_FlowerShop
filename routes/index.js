@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
   try {
     const flowers = await Flower.find();
     const displayName = req.user ? req.user.displayName : null;
-    res.render('index', { title: 'Flower Shop', flowers, displayName });
+    res.render('index', { title: 'Flower Shop', flowers, displayName});
   } catch (error) {
     console.error("Error when fetching flowers:", error);
     next(error);
@@ -50,7 +50,7 @@ router.get('/flowerslist/edit/:id',requireAuth, async  (req, res) => {
     if (!flower) {
       return res.status(404).send('Flower not found.');
     }
-    res.render('flowers/edit',requireAuth, {title: 'Edit Flower', flower});
+    res.render('flowers/edit', {title: 'Edit Flower', flower});
   } catch (err) {
     console.error('Error getting flowers:', err);
     res.status(500).send('Error getting flower details.');
@@ -118,12 +118,6 @@ router.get('/flowerslist/delete/:id',requireAuth, async (req, res) => {
  }
 });
 
-router.get('/',(req, res) => {
-  console.log('User object:', req.user);
-  const displayName = req.user ? req.user.displayName : null;
-  res.render('index', { title: 'Flower Shop', displayName });
-  console.log('Display Name:', displayName);
-});
 
 function requireAuth(req,res, next)
 {

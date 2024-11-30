@@ -17,7 +17,7 @@ router.get('/', requireAuth, async (req, res) => {
     }
 });
 
-router.get('/new', (req, res) => {
+router.get('/new', requireAuth, (req, res) => {
     res.render('flowers/new', {title: "Add Flower"});
 });
 
@@ -48,7 +48,7 @@ router.get('/:id/edit', requireAuth, async (req, res) => {
     }
 });
 
-router.post('/:id/edit', requireAuth, async (req, res) => {
+router.post('/:id/edit', async (req, res) => {
     const { name, color, price, quantity } = req.body;
     try {
         const updatedFlower = await Flower.findByIdAndUpdate(
@@ -66,7 +66,7 @@ router.post('/:id/edit', requireAuth, async (req, res) => {
     }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', requireAuth, async (req, res) => {
     try {
         const flowerId = req.params.id;
         await Flower.findByIdAndDelete(flowerId);
