@@ -100,7 +100,7 @@ router.get('/flowerslist/delete/:id',requireAuth, async (req, res) => {
   }
  });
 
- router.put('/contact', async (req, res) => {
+ router.post('/contact', async (req, res) => {
   const {name, email, message } = req.body;
   const newContact = new Contact({
     name, 
@@ -116,6 +116,19 @@ router.get('/flowerslist/delete/:id',requireAuth, async (req, res) => {
   res.status(500).send('Error saving your message.');
 
  }
+});
+
+router.get('contact/delete:id', requireAuth, async (req, res) => {
+  try {
+    const deletedContact = await Contact.findByIdAndDelete(req.params.id);
+    if (!deletedContact) {
+      return res.status(404).send('Contact not found');
+    }
+    res.redirect('/contact');
+  } catch(err) {
+    console.error('error deleting:', err);
+    res.status(500),send('Error when deleting.');
+  }
 });
 
 
