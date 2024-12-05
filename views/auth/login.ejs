@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
     <meta name="viewport" content="width-device-width, intial-scale=1">
     <link rel='stylesheet' href='/Content/app.css' />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;1000&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Calibri:wght@400;1000&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
-  </head>
-  <body>
-      <header>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
         <!--NavBar-->
         <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand custom-navbar-title" href="/">FLOWER SHOP</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav ms-3 mb-2 mb-lg-0">
-                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <ul class="navbar-nav ms-3 mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about">About Us</a>
@@ -34,17 +41,19 @@
                         </li>
                     </ul>
                     <form class="d-flex ms-auto" role="search">
-                      <% if (!displayName) { %>
-                        <a class="btn btn-outline-primary me-2" href="/login">Login</a>
-                        <a class="btn btn-outline-success" href="/register">Register</a>
-                      <% } else { %>
-                        <span class="me-2">Welcome, <%= displayName %>!</span>
-                        <a class="btn btn-outline-danger" href="/logout">Logout</a>
-                      <% } %>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="search-btn me-2" type="submit">Search</button>
-                          <button class="login-btn" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">LOG IN</button>
-                        
+                        <% if (!displayName) { %>
+                            <a class="btn btn-outline-primary me-2" href="/login">Login</a>
+                            <a class="btn btn-outline-success" href="/register">Register</a>
+                            <% } else { %>
+                                <span class="me-2">Welcome, <%= displayName %>!</span>
+                                <a class="btn btn-outline-danger" href="/logout">Logout</a>
+                                <% } %>
+                                    <input class="form-control me-2" type="search" placeholder="Search"
+                                        aria-label="Search">
+                                    <button class="search-btn me-2" type="submit">Search</button>
+                                    <button class="login-btn" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">LOG IN</button>
+
                     </form>
                 </div>
             </div>
@@ -52,41 +61,41 @@
     </header>
 
     <main class="container">
-<!--Message -->
-        <% if (message && message.length > 0) { %>
-        <div class="alert alert-danger">
-            <%= message %>
-        </div>
-        <% } %>
-
-        <div class="row">
-            <div class="offset-mt-4 col-md-4">
-                <h1>Please Login</h1>
-                <form action="/login" method="post" autocomplete="off">
-                    <fieldset class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control"
-                        name="username" 
-                        placeholder="Enter Username"
-                        id="username" required autofocus>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control"
-                        name="password" 
-                        placeholder="Enter password"
-                        id="password" required>
-                        or 
-                        <a href="/register">Register Here</a>
-                    </fieldset>
-                    <fieldset class="form-group-text-right">
-                        <input type="submit" class="btn.btn-success"
-                        value="login">
-                        <a href="/"></a>
-                            <input type="button" class="btn btn-warning" value="Cancel">
-                        </a>
-                    </fieldset>     
-                </form>
+        <!--Message -->
+        <% if (message && message.length> 0) { %>
+            <div class="alert alert-danger">
+                <%= message %>
             </div>
-        </div>
+            <% } %>
+
+                <div class="row">
+                    <div class="offset-mt-4 col-md-4">
+                        <h1>Please Login</h1>
+                        <form action="/login" method="post" autocomplete="off">
+                            <fieldset class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Enter Username"
+                                    id="username" required autofocus>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Enter password"
+                                    id="password" required>
+                                or
+                                <a href="/register">Register Here</a>
+                            </fieldset>
+                            <fieldset class="form-group-text-right">
+                                <input type="submit" class="btn.btn-success" value="login">
+                                <a href="/"></a>
+                                <input type="button" class="btn btn-warning" value="Cancel">
+                                </a>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <footer class="custom-footer text-white text-center py-3 mt-4">
+                    <p>&copy; 2024 Flower Shop. All Rights Reserved.</p>
+                </footer>
+
+                <script src="http://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     </main>
